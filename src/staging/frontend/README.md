@@ -1,10 +1,16 @@
+### `staging/api/<product name>/src/`
+
 # Front-End Extraction Modules
 
 This folder contains extract classes and utilities that perform **front-end scraping or browser-simulated data retrieval** in cases where no public API exists or required data is only accessible via a web interface.
 
 These modules are designed to integrate with the broader ETL architecture alongside API-based flows, using consistent return formats and shared configuration structures.
 
+<br>
+
 ---
+
+<br>
 
 ## Purpose
 
@@ -15,7 +21,11 @@ Some vendor platforms expose critical data only through browser interfaces, ofte
 - Capturing data from authenticated endpoints or embedded assets (e.g., CSV exports)
 - Returning results in a uniform `{"data": ..., "result": ...}` format for downstream transformation and loading
 
+<br>
+
 ---
+
+<br>
 
 ## Key Characteristics
 
@@ -26,7 +36,11 @@ Some vendor platforms expose critical data only through browser interfaces, ofte
 - **Vault integration**: Secrets are injected securely from HashiCorp Vault using pre-configured mount points and paths
 - **Tightly scoped**: Each module focuses on a single data domain (e.g., assets, tickets, alerts) per platform
 
+<br>
+
 ---
+
+<br>
 
 ## Output Format
 
