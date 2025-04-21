@@ -1,6 +1,6 @@
-#############################
-# PYTHON / PREFECT / Pycharm
-#############################
+# -------------------------------
+# - PYTHON / PREFECT / PYCHARM -
+# -------------------------------
 
 # Python cache and artifacts
 __pycache__/
@@ -37,9 +37,10 @@ site/
 coverage.xml
 htmlcov/
 
-######################
-# NOTEBOOKS / SCRAPING
-######################
+
+# ---------------------------
+# - NOTEBOOKS / SCRAPING -
+# ---------------------------
 
 # Jupyter
 .ipynb_checkpoints/
@@ -50,9 +51,10 @@ playwright-report/
 output/
 screenshots/
 
-##########################
-# IDEs / EDITOR FILES
-##########################
+
+# ----------------------------
+# - IDEs / EDITOR FILES -
+# ----------------------------
 
 # PyCharm
 .idea/
@@ -62,20 +64,25 @@ screenshots/
 .vscode/
 .history/
 
-####################
-# API (FastAPI/etc)
-####################
+
+# ------------------------
+# - API (FASTAPI/ETC) -
+# ------------------------
+
 *.pid
 *.log
 
-#############
-# DOCKER
-#############
+
+# -------------
+# - DOCKER -
+# -------------
+
 docker-compose.override.yml
 
-##################
-# KUBERNETES / HELM
-##################
+
+# -----------------------------
+# - KUBERNETES / HELM FILES -
+# -----------------------------
 .kube/
 .kubeconfig
 *.yaml~
@@ -88,9 +95,11 @@ charts/
 values.yaml
 values-*.yaml
 
-##################
-# TERRAFORM
-##################
+
+# ------------------------
+# - TERRAFORM FILES -
+# ------------------------
+
 *.tfstate
 *.tfstate.*
 *.tfvars
@@ -98,23 +107,28 @@ values-*.yaml
 crash.log
 crash.*.log
 
-##################
-# MINIO / VAULT / POSTGRES
-##################
+
+# -------------------------------
+# - MINIO / VAULT / POSTGRES -
+# -------------------------------
+
 *.minio
-vault/
 *.psql
 pgdata/
 
-##############
-# GITLEAKS
-##############
+
+# ------------------
+# - GITLEAKS FILES -
+# ------------------
+
 gitleaks-report.json
 gitleaks-report.sarif
 
-##############
-# C++
-##############
+
+# ----------
+# - C++ -
+# ----------
+
 *.o
 *.obj
 *.so
@@ -145,16 +159,20 @@ cmake_install.cmake
 Makefile
 compile_commands.json
 
-##############
-# DASK
-##############
+
+# -------------
+# - DASK -
+# -------------
+
 .dask-worker-space/
 *.dask-temp/
 dask-worker-space/
 
-##############
-# POLARS
-##############
+
+# --------------
+# - POLARS -
+# --------------
+
 *.parquet
 *.ipc
 *.arrow
@@ -164,3 +182,11 @@ dask-worker-space/
 # Catch-all for chunky data
 data/
 *.zip
+
+
+# ----------------------
+# - PREFECT (DEPLOYMENT)
+# ----------------------
+
+.prefectignore
+**/.prefectignore

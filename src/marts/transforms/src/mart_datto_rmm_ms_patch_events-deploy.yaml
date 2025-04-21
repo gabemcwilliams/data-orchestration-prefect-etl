@@ -1,0 +1,40 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: transforms
+prefect-version: 3.0.1
+
+# build section allows you to manage and build docker images
+build: null
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push: null
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.set_working_directory:
+    directory: /prefect/src
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: mart_datto_rmm_ms_patch_events
+  version: null
+  tags: []
+  concurrency_limit: null
+  description: null
+  entrypoint: /prefect/src/marts/transforms/src/mart_datto_rmm_ms_patch_events.py:mart_datto_rmm_ms_patch_events
+  parameters: { }
+  work_pool:
+    name: default-worker-pool
+    work_queue_name: null
+    job_variables: { }
+enforce_parameter_schema: true
+schedules:
+- interval: 3600.0
+  anchor_date: '2024-01-01T01:00:00+00:00'
+  timezone: UTC
+  active: true
+  max_active_runs: null
+  catchup: false

@@ -1,0 +1,28 @@
+#####################################
+#
+#     CONNECTIONS Configuration File
+#     Created by: Gabe McWilliams
+#     Date: 2024/09/30
+#
+#####################################
+
+ENVIRONMENT: PROD
+
+CONNECTIONS:
+
+  postgres_linapi:
+      mount_point: db
+      path: postgresql/prefect_io
+
+  minio_linapi:
+      mount_point: db
+      path: minio/prefect_io
+
+
+
+
+
+
+
+
+

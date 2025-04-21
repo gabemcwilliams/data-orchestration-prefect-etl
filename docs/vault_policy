@@ -1,0 +1,33 @@
+# ------------------------------------------------------------------------------
+# Vault ACL Policy - Read/List Access for Application Namespaces
+# ------------------------------------------------------------------------------
+
+# API routes (e.g., secrets/api/)
+path "api/*" {
+  capabilities = ["read", "list"]
+}
+
+# Cloud configuration and credentials
+path "cloud/*" {
+  capabilities = ["read", "list"]
+}
+
+# Database credentials and connection strings
+path "db/*" {
+  capabilities = ["read", "list"]
+}
+
+# Login/authentication related secrets
+path "login/*" {
+  capabilities = ["read", "list"]
+}
+
+# Localhost-scoped development/test secrets
+path "localhost/*" {
+  capabilities = ["read", "list"]
+}
+
+# Frontend application secrets or configuration
+path "frontend/*" {
+  capabilities = ["read", "list"]
+}

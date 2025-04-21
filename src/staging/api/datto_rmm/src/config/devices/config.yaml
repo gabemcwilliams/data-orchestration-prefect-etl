@@ -1,0 +1,85 @@
+#####################################
+#  TASK Configuration File (Example)
+#  Created by: Gabe McWilliams
+#  Last Updated: YYYY/MM/DD
+#####################################
+
+ENVIRONMENT: PROD
+JOB_TITLE: staging_datto_rmm_api_devices
+LOGS_DIR: None
+
+TASKS:
+
+  - POSITION: 0
+    DETAILS:
+      task_title: API [EXTRACT] - datto_rmm - devices
+      purpose: EXTRACT
+      product: datto_rmm
+      subject: devices
+      scripts:
+        - extract_datto_rmm_api.py
+
+    SECRETS:
+      mount_point: api
+      path: datto_rmm/example_account
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation:
+
+  - POSITION: 1
+    DETAILS:
+      task_title: DataFrame [TRANSFORM] - datto_rmm - devices
+      purpose: TRANSFORM
+      product: datto_rmm
+      subject: devices
+      scripts:
+        - transform_api_datto_rmm_devices.py
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation:
+
+  - POSITION: 2
+    DETAILS:
+      task_title: Minio [LOAD] - datto_rmm - devices
+      purpose: LOAD
+      source_method: api
+      product: datto_rmm
+      subject: devices
+      scripts:
+        - load_minio.py
+
+    SECRETS:
+      mount_point: db
+      path: minio/prefect_io
+
+    DATA:
+      origin: dataframe
+      destination:
+        bucket: staging
+        file_type: parquet
+      validation:
+
+  - POSITION: 3
+    DETAILS:
+      task_title: Postgres [LOAD] - datto_rmm - devices
+      purpose: LOAD
+      product: datto_rmm
+      subject: devices
+      scripts:
+        - load_postgres.py
+
+    SECRETS:
+      mount_point: db
+      path: postgresql/prefect_io
+
+    DATA:
+      origin: dataframe
+      destination:
+        database: staging
+        schema: datto_rmm
+        table: devices
+      validation:

@@ -1,0 +1,46 @@
+# -----------------------------------------------------------------------------
+# Prefect Core (for the server)
+# -----------------------------------------------------------------------------
+prefect
+
+# -----------------------------------------------------------------------------
+# Database Connectors
+# -----------------------------------------------------------------------------
+psycopg2-binary  # PostgreSQL (for Prefect state storage)
+SQLAlchemy  # ORM
+alembic  # Migrations
+
+# -----------------------------------------------------------------------------
+# Secrets Management
+# -----------------------------------------------------------------------------
+hvac  # HashiCorp Vault client
+bcrypt  # Password hashing
+pyjwt  # JWT authentication
+pyotp  # One Time Password (TOTP) library
+
+# -----------------------------------------------------------------------------
+# Object Storage (MinIO)
+# -----------------------------------------------------------------------------
+minio  # S3-compatible storage
+
+# -----------------------------------------------------------------------------
+# Data Handling
+# -----------------------------------------------------------------------------
+pandas  # DataFrames & data transformation
+pyarrow  # Parquet file handling
+pyyaml  # YAML parsing
+ray  # distributed dataframe manipulation
+polars  # Fast DataFrame manipulation (alternative to pandas)
+dask  # Parallel computing for larger-than-memory data
+
+# -----------------------------------------------------------------------------
+# Web Framework (for the API/UI)
+# -----------------------------------------------------------------------------
+fastapi
+uvicorn
+
+# -----------------------------------------------------------------------------
+# Async Processing
+# -----------------------------------------------------------------------------
+asyncio
+aiohttp

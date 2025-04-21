@@ -1,0 +1,64 @@
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
+pytest  # Test framework
+pytest-asyncio  # Async test case support
+selenium  # Web automation
+pytest-cov  # Test coverage reports
+pytest-mock  # Mocking library for pytest
+httpx  # HTTP client for async testing (useful with FastAPI)
+factory_boy  # Fixtures and test data factory for objects
+Faker  # Library for generating fake data (useful in tests)
+pandera  # DataFrame validation
+responses  # HTTP request mocking
+
+# -----------------------------------------------------------------------------
+# Optional / Advanced Testing Tools
+# -----------------------------------------------------------------------------
+great_expectations  # Data validation and profiling framework (optional)
+testcontainers  # Run Docker containers for integration tests (optional)
+hypothesis  # Property-based testing for generating edge-case inputs (optional)
+
+# -----------------------------------------------------------------------------
+# Prefect Core (for the server)
+# -----------------------------------------------------------------------------
+prefect
+
+# -----------------------------------------------------------------------------
+# Database Connectors
+# -----------------------------------------------------------------------------
+psycopg2-binary  # PostgreSQL (for Prefect state storage)
+SQLAlchemy  # ORM
+alembic  # Migrations
+
+# -----------------------------------------------------------------------------
+# Secrets Management
+# -----------------------------------------------------------------------------
+hvac  # HashiCorp Vault client
+bcrypt  # Password hashing
+pyjwt  # JWT authentication
+
+# -----------------------------------------------------------------------------
+# Object Storage (MinIO)
+# -----------------------------------------------------------------------------
+minio  # S3-compatible storage
+
+# -----------------------------------------------------------------------------
+# Data Handling
+# -----------------------------------------------------------------------------
+pandas  # DataFrames & data transformation
+pyarrow  # Parquet file handling
+pyyaml  # YAML parsing
+ray  # distributed dataframe manipulation
+
+# -----------------------------------------------------------------------------
+# Web Framework (for the API/UI)
+# -----------------------------------------------------------------------------
+fastapi
+uvicorn
+
+# -----------------------------------------------------------------------------
+# Async Processing
+# -----------------------------------------------------------------------------
+asyncio
+aiohttp

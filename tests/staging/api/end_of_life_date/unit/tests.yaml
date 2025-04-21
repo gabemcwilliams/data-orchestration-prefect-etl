@@ -1,0 +1,75 @@
+ENVIRONMENT: development
+JOB_TITLE: api_tests_datto_rmm
+
+TASKS:
+
+  - POSITION: 0
+    DETAILS:
+      task_title: API [EXTRACT] - tests # str
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: tests # str
+      subject: tests # str ie.
+
+    SECRETS:
+      mount_point: api # str
+      path: end_of_life_date # str api env variable key
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+
+  - POSITION: 1
+    DETAILS:
+      task_title: Minio [LOAD] - tests # str
+      purpose: LOAD # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      source_method: api
+      product: end_of_life_date # str
+      subject: tests # str ie.
+      scripts:
+        - load_minio.py
+
+    SECRETS:
+      mount_point: localhost
+      path: minio/prefect # str api env
+
+    DATA:
+      origin: dataframe # str
+      destination:
+        type: localhost # str
+        bucket: products # str bucket name, db name, etc name for root path
+        file_type: parquet # str file type for object storage
+      validation: # str future reference of data validation
+
+
+
+
+  - POSITION: 2
+    DETAILS:
+      task_title: Postgres [LOAD] - end_of_life_date - tests
+      purpose: LOAD # str # ETL etc...
+      product: end_of_life_date # str
+      subject: tests # str ie.
+      scripts:
+        - load_postgres.py
+
+    SECRETS:
+      mount_point: localhost
+      path: postgres/prefect # str api env
+
+    DATA:
+      origin: dataframe # str bucket, db, etc name for root path
+      destination:
+        database: products # str database name
+        schema: end_of_life_date # str schema name
+        table: tests # str table name
+        region: local # str region
+      validation: # str future reference of data validation
+
+
+
+
+
+

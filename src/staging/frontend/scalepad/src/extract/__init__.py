@@ -1,0 +1,1 @@
+from .extract_frontend_scalepad import ExtractScalepad

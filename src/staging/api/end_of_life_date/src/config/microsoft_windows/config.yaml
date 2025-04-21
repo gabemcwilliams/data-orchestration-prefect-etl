@@ -1,0 +1,87 @@
+#####################################
+#
+#     TASK Configuration File (Example)
+#     Created by: Gabe McWilliams
+#     Date: 2023/04/19
+#
+#####################################
+ENVIRONMENT: PROD
+JOB_TITLE: staging_end_of_life_date_windows
+
+
+
+TASKS:
+  - POSITION: 0
+    DETAILS:
+      task_title: API [EXTRACT] - end_of_life_date - windows workstation # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: end_of_life_date # str | None
+      subject: windows workstation # str
+      scripts: # :list of strings for scripts used
+        - extract_api_end_of_life_date.py
+    SECRETS:
+      mount_point: api # str | None
+      path: end_of_life_date # str | None api env variable key
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 1
+    DETAILS:
+      task_title: API [EXTRACT] - end_of_life_date - windows server # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: end_of_life_date # str | None
+      subject: windows server # str
+      scripts: # :list of strings for scripts used
+        - extract_api_end_of_life_date.py
+    SECRETS:
+      mount_point: api # str | None
+      path: end_of_life_date # str | None api env variable key
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 2
+    DETAILS:
+      task_title: DataFrame [TRANSFORM] - end_of_life_date - windows workstation and server # str | None
+      purpose: TRANSFORM # str | None # ETL etc...
+      product: end_of_life_date # str | None
+      subject: windows # str
+      scripts:
+        transform_api_end_of_life_date_microsoft_windows.py
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 3
+    DETAILS:
+      task_title: Postgres [LOAD] - end_of_life_date - windows # str | None
+      purpose: LOAD # str
+      product: end_of_life_date # str | None
+      subject: windows # str
+      scripts:
+        - load_postgres.py
+    SECRETS:
+      mount_point: db
+      path: postgresql/prefect_io
+    DATA:
+      origin: dataframe
+      source_method: api
+      destination:
+        database: staging # str | None database name
+        schema: end_of_life_date # str | None schema name
+        table: windows # str | None table name
+      validation: # str future reference of data validation
+
+
+
+
+
+
+

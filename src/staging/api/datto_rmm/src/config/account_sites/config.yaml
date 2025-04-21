@@ -1,0 +1,87 @@
+#####################################
+#
+#     TASK Configuration File (Example)
+#     Created by: Gabe McWilliams
+#     Date: 2023/04/19
+#
+#####################################
+
+ENVIRONMENT: PROD
+JOB_TITLE: staging_datto_rmm_api_account_sites
+LOGS_DIR: None
+
+
+TASKS:
+
+  - POSITION: 0
+    DETAILS:
+      task_title: API [EXTRACT] - datto_rmm - account_sites # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: datto_rmm # str | None
+      subject: account_sites # str
+      scripts: # :list of strings for scripts used
+        - extract_datto_rmm_api.py
+
+    SECRETS:
+      mount_point: api # str | None
+      path: datto_rmm/example_account # str | None api env variable key
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+
+  - POSITION: 2
+    DETAILS:
+      task_title: Minio [LOAD] - datto_rmm - account_sites # str | None
+      purpose: LOAD # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      source_method: api
+      product: datto_rmm # str | None
+      subject: account_sites # str
+      scripts:
+        - load_minio.py
+          
+    SECRETS:
+      mount_point: db
+      path: minio/prefect_io
+
+    DATA:
+      origin: dataframe
+      source_method: api
+      destination:
+        bucket: staging # str bucket name, db name, etc name for root path
+        file_type: parquet # str file type for object storage
+      validation: # str future reference of data validation
+
+
+
+  - POSITION: 3
+    DETAILS:
+      task_title: Postgres [LOAD] - datto_rmm - account_sites # str | None 
+      purpose: LOAD # str
+      product: datto_rmm # str | None 
+      subject: account_sites # str
+      scripts:
+        - load_postgres.py
+
+    SECRETS:
+      mount_point: db
+      path: postgresql/prefect_io
+
+    DATA:
+      origin: dataframe
+      source_method: api
+      destination:
+        database: staging # str database name
+        schema: datto_rmm # str | None schema name
+        table: account_sites # str | None table name
+      validation: # str future reference of data validation
+
+
+
+
+
+
+

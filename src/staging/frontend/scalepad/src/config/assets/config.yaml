@@ -1,0 +1,95 @@
+#####################################
+#
+#     TASK Configuration File (Example)
+#     Created by: Gabe McWilliams
+#     Date: 2023/04/19
+#
+#####################################
+
+ENVIRONMENT: PROD
+JOB_TITLE: scalepad_frontend_activity
+
+TASKS:
+
+  - POSITION: 0
+    DETAILS:
+      task_title: frontend [EXTRACT] - scalepad - hardware_assets # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: scalepad # str | None
+      subject: hardware_assets # str
+      scripts: # :list of strings for scripts used
+        - extract_frontend_scalepad.py
+
+    SECRETS:
+      mount_point: frontend # str | None
+      path: scalepad/power_example_co # str | None frontend env variable key
+
+    DATA:
+      origin: frontend
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 1
+    DETAILS:
+      task_title: Minio [LOAD] - scalepad - hardware_assets # str | None
+      purpose: LOAD # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: scalepad # str | None
+      subject: hardware_assets # str
+      scripts:
+        - load_minio.py
+
+    SECRETS:
+      mount_point: db
+      path: minio/prefect_io
+
+    DATA:
+      origin: dataframe
+      source_method: frontend
+      destination:
+        bucket: staging # str bucket name, db name, etc name for root path
+        file_type: parquet # str file type for object storage
+      validation: # str future reference of data validation
+
+
+  - POSITION: 2
+    DETAILS:
+      task_title: DataFrame [TRANSFORM] - scalepad - hardware_assets
+      purpose: TRANSFORM # str | None # ETL etc...
+      product: scalepad # str | None
+      subject: hardware_assets # str
+      scripts:
+        transform_scalepad_frontend.py    
+    DATA:
+      origin: dataframe
+      source_method: frontend
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 3
+    DETAILS:
+      task_title: Postgres [LOAD] - scalepad - hardware_assets
+      purpose: LOAD # str
+      product: scalepad # str | None
+      subject: hardware_assets # str
+      scripts:
+        - load_postgres.py
+
+    SECRETS:
+      mount_point: db
+      path: postgresql/prefect_io
+
+    DATA:
+      origin: dataframe
+      source_method: frontend
+      destination:
+        database: staging # str database name
+        schema: scalepad # str | None schema name
+        table: hardware_assets # str | None table name
+      validation: # str future reference of data validation
+
+
+
+
+

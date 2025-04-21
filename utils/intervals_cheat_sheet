@@ -1,0 +1,32 @@
+# schedules.yaml
+
+schedules:
+  - name: every_15_min
+    interval: 900        # Every 15 minutes
+    timezone: UTC
+    is_schedule_active: true
+
+  - name: every_30_min
+    interval: 1800       # Every 30 minutes
+    timezone: UTC
+    is_schedule_active: true
+
+  - name: hourly
+    interval: 3600       # Every hour
+    timezone: UTC
+    is_schedule_active: true
+
+  - name: every_6_hours
+    interval: 21600      # Every 6 hours
+    timezone: UTC
+    is_schedule_active: true
+
+  - name: every_12_hours
+    interval: 43200      # Every 12 hours
+    timezone: UTC
+    is_schedule_active: true
+
+  - name: daily
+    interval: 86400      # Every 24 hours
+    timezone: UTC
+    is_schedule_active: true

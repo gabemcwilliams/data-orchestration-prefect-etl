@@ -1,0 +1,56 @@
+# Prefect.io Container Lint, Test, Docker Build
+
+name: Prefect.io - Build Container Image, Lint, Test
+
+on:
+  workflow_dispatch:  # Allows manual triggering of the workflow from GitHub UI
+  push:
+    branches: [ main ]
+    paths:
+      - .github/**
+      - src/**
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: [ linapi ]
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set dynamic Docker tags using the current timestamp and 'latest'
+      - name: Set dynamic Docker tags using timestamp
+        id: docker-tags
+        run: |
+          # Get the current timestamp in UTC format (YYYY_MM_DD_HHMMSS)
+          TIMESTAMP=$(date -u +"%Y_%m_%d_%H%M%S")
+          # Assign 'latest' tag for the main branch
+          TAG="${TIMESTAMP}"
+          LATEST_TAG="latest"
+          echo "TAG=${TAG}" >> $GITHUB_ENV
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+
+      # Step 3: Build the Docker image and run tests during build
+      - name: Build Docker image
+        run: |
+          docker build --pull --no-cache --progress=plain \
+            -t registry.internal:5000/prefect_python312:${{ env.TAG }} \
+            -t registry.internal:5000/prefect_python312:${{ env.LATEST_TAG }} \
+            -f Dockerfile .
+
+      # Step 4: Push Docker image to registry
+      - name: Push Docker image to registry
+        run: |
+          docker push registry.internal:5000/prefect_python312:${{ env.TAG }}
+          docker push registry.internal:5000/prefect_python312:${{ env.LATEST_TAG }}
+
+      # Optional: Upload test logs if needed
+      - name: Upload test results (optional)
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: /app/test-results.xml  # Example: Adjust pat

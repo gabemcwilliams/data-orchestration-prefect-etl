@@ -1,0 +1,131 @@
+#####################################
+#
+#     TASK Configuration File (Example)
+#     Created by: Gabe McWilliams
+#     Date: 2023/04/19
+#
+#####################################
+
+ENVIRONMENT: PROD
+JOB_TITLE: datto_rmm_api_monitors
+
+TASKS:
+
+  - POSITION: 0
+    DETAILS:
+      task_title: API [EXTRACT] - datto_rmm - open monitors # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: datto_rmm # str | None
+      subject: devices # str
+      scripts: # :list of strings for scripts used
+        - extract_api_datto_rmm.py
+
+    SECRETS:
+      mount_point: api # str | None
+      path: datto_rmm/example_account # str | None api env variable key
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+
+  - POSITION: 1
+    DETAILS:
+      task_title: API [EXTRACT] - datto_rmm - resolved monitors # str | None
+      purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      product: datto_rmm # str | None
+      subject: devices # str
+      scripts: # :list of strings for scripts used
+        - extract_api_datto_rmm.py
+
+    SECRETS:
+      mount_point: api # str | None
+      path: datto_rmm/example_account # str | None api env variable key
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+
+
+  - POSITION: 2
+    DETAILS:
+      task_title: Concat - Open and Resolved Dataframes [TRANSFORM] - datto_rmm - all monitors # str | None
+      purpose: TRANSFORM # str | None # ETL etc...
+      product: datto_rmm # str | None
+      subject: monitors # str
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+  - POSITION: 3
+    DETAILS:
+      task_title: Transform [TRANSFORM] - datto_rmm - all monitors # str | None
+      purpose: TRANSFORM # str | None # ETL etc...
+      product: datto_rmm # str | None
+      subject: monitors # str
+      scripts:
+        - transform_api_datto_rmm_monitors.py
+
+    DATA:
+      origin: api
+      destination: dataframe
+      validation: # str future reference of data validation
+
+
+
+  - POSITION: 4
+    DETAILS:
+      task_title: Minio [LOAD] - datto_rmm - devices # str | None
+      purpose: LOAD # str ["EXTRACT", "TRANSFORM", "LOAD"]
+      source_method: api
+      product: datto_rmm # str | None
+      subject: monitors # str
+      scripts:
+        - load_minio.py
+
+    DATA:
+      origin: dataframe
+      source_method: api
+      destination:
+        bucket: staging # str bucket name, db name, etc name for root path
+        file_type: parquet # str file type for object storage
+      validation: # str future reference of data validation
+      quality: gold # str | None
+
+    SECRETS:
+      mount_point: db
+      path: minio/prefect_io
+
+
+
+  - POSITION: 5
+    DETAILS:
+      task_title: Postgres [LOAD] - datto_rmm - monitors # str | None
+      purpose: LOAD # str
+      product: datto_rmm # str | None
+      subject: monitors # str
+      scripts:
+        - load_postgres.py
+
+    SECRETS:
+      mount_point: db
+      path: postgresql/prefect_io
+
+    DATA:
+      origin: dataframe
+      source_method: api
+      destination:
+        database: staging # str database name
+        schema: datto_rmm # str | None schema name
+        table: monitors # str | None table name
+      validation: # str future reference of data validation
+      quality: platinum # str | None
+
