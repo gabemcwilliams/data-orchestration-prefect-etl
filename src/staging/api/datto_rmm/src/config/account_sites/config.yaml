@@ -19,8 +19,7 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: datto_rmm # str | None
       subject: account_sites # str
-      scripts: # :list of strings for scripts used
-        - extract_datto_rmm_api.py
+
 
     SECRETS:
       mount_point: api # str | None
@@ -40,9 +39,8 @@ TASKS:
       source_method: api
       product: datto_rmm # str | None
       subject: account_sites # str
-      scripts:
-        - load_minio.py
-          
+
+
     SECRETS:
       mount_point: db
       path: minio/prefect_io
@@ -63,8 +61,7 @@ TASKS:
       purpose: LOAD # str
       product: datto_rmm # str | None 
       subject: account_sites # str
-      scripts:
-        - load_postgres.py
+
 
     SECRETS:
       mount_point: db

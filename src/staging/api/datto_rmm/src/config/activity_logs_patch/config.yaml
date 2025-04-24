@@ -19,8 +19,7 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: datto_rmm # str | None
       subject: activity_logs_patch # str
-      scripts: # :list of strings for scripts used
-        - extract_datto_rmm_api.py
+
 
     SECRETS:
       mount_point: api # str | None
@@ -39,9 +38,8 @@ TASKS:
       purpose: TRANSFORM # str | None # ETL etc...
       product: datto_rmm # str | None
       subject: devices # str
-      scripts:
-        transform_api_datto_rmm_activity_logs_patch.py
-    
+
+
     DATA:
       origin: api
       destination: dataframe
@@ -56,9 +54,8 @@ TASKS:
       source_method: api
       product: datto_rmm # str | None
       subject: activity_logs_patch # str
-      scripts:
-        - load_minio.py
-          
+
+
     SECRETS:
       mount_point: db
       path: minio/prefect_io
@@ -79,8 +76,7 @@ TASKS:
       purpose: LOAD # str
       product: datto_rmm # str | None
       subject: activity_logs_patch # str
-      scripts:
-        - load_postgres.py
+
 
     SECRETS:
       mount_point: db

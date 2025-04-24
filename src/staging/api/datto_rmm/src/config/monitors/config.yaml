@@ -17,8 +17,7 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: datto_rmm # str | None
       subject: devices # str
-      scripts: # :list of strings for scripts used
-        - extract_api_datto_rmm.py
+
 
     SECRETS:
       mount_point: api # str | None
@@ -37,8 +36,7 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: datto_rmm # str | None
       subject: devices # str
-      scripts: # :list of strings for scripts used
-        - extract_api_datto_rmm.py
+
 
     SECRETS:
       mount_point: api # str | None
@@ -71,8 +69,7 @@ TASKS:
       purpose: TRANSFORM # str | None # ETL etc...
       product: datto_rmm # str | None
       subject: monitors # str
-      scripts:
-        - transform_api_datto_rmm_monitors.py
+
 
     DATA:
       origin: api
@@ -88,8 +85,7 @@ TASKS:
       source_method: api
       product: datto_rmm # str | None
       subject: monitors # str
-      scripts:
-        - load_minio.py
+
 
     DATA:
       origin: dataframe
@@ -98,7 +94,6 @@ TASKS:
         bucket: staging # str bucket name, db name, etc name for root path
         file_type: parquet # str file type for object storage
       validation: # str future reference of data validation
-      quality: gold # str | None
 
     SECRETS:
       mount_point: db
@@ -112,8 +107,7 @@ TASKS:
       purpose: LOAD # str
       product: datto_rmm # str | None
       subject: monitors # str
-      scripts:
-        - load_postgres.py
+
 
     SECRETS:
       mount_point: db
@@ -127,5 +121,3 @@ TASKS:
         schema: datto_rmm # str | None schema name
         table: monitors # str | None table name
       validation: # str future reference of data validation
-      quality: platinum # str | None
-

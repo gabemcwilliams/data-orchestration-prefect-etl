@@ -16,8 +16,7 @@ TASKS:
       purpose: EXTRACT
       product: datto_rmm
       subject: devices
-      scripts:
-        - extract_datto_rmm_api.py
+
 
     SECRETS:
       mount_point: api
@@ -34,8 +33,7 @@ TASKS:
       purpose: TRANSFORM
       product: datto_rmm
       subject: devices
-      scripts:
-        - transform_api_datto_rmm_devices.py
+
 
     DATA:
       origin: api
@@ -49,8 +47,7 @@ TASKS:
       source_method: api
       product: datto_rmm
       subject: devices
-      scripts:
-        - load_minio.py
+
 
     SECRETS:
       mount_point: db
@@ -69,8 +66,7 @@ TASKS:
       purpose: LOAD
       product: datto_rmm
       subject: devices
-      scripts:
-        - load_postgres.py
+
 
     SECRETS:
       mount_point: db

@@ -17,8 +17,8 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: end_of_life_date # str | None
       subject: windows workstation # str
-      scripts: # :list of strings for scripts used
-        - extract_api_end_of_life_date.py
+
+
     SECRETS:
       mount_point: api # str | None
       path: end_of_life_date # str | None api env variable key
@@ -34,8 +34,8 @@ TASKS:
       purpose: EXTRACT # str ["EXTRACT", "TRANSFORM", "LOAD"]
       product: end_of_life_date # str | None
       subject: windows server # str
-      scripts: # :list of strings for scripts used
-        - extract_api_end_of_life_date.py
+
+
     SECRETS:
       mount_point: api # str | None
       path: end_of_life_date # str | None api env variable key
@@ -51,8 +51,8 @@ TASKS:
       purpose: TRANSFORM # str | None # ETL etc...
       product: end_of_life_date # str | None
       subject: windows # str
-      scripts:
-        transform_api_end_of_life_date_microsoft_windows.py
+
+
     DATA:
       origin: api
       destination: dataframe
@@ -65,8 +65,8 @@ TASKS:
       purpose: LOAD # str
       product: end_of_life_date # str | None
       subject: windows # str
-      scripts:
-        - load_postgres.py
+
+
     SECRETS:
       mount_point: db
       path: postgresql/prefect_io

@@ -28,8 +28,7 @@ TASKS:
       source_method: api
       product: end_of_life_date # str
       subject: tests # str ie.
-      scripts:
-        - load_minio.py
+
 
     SECRETS:
       mount_point: localhost
@@ -52,8 +51,7 @@ TASKS:
       purpose: LOAD # str # ETL etc...
       product: end_of_life_date # str
       subject: tests # str ie.
-      scripts:
-        - load_postgres.py
+
 
     SECRETS:
       mount_point: localhost
