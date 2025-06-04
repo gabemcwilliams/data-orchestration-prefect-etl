@@ -152,7 +152,7 @@ def stg_frontend_scalepad_hardware_assets() -> None:
 
 
 if __name__ in "__main__":
-    os.environ['PREFECT_API_URL'] = 'https://prefect.data-automation.internal'
+    os.environ['PREFECT_API_URL'] = 'https://prefect.example.internal'
     print(f'PREFECT_API_URL: {os.environ.get("PREFECT_API_URL")}')
     flow_func = stg_frontend_scalepad_hardware_assets
     flow_name = flow_func.__name__
