@@ -152,8 +152,12 @@ def stg_frontend_scalepad_hardware_assets() -> None:
 
 
 if __name__ in "__main__":
-    os.environ['PREFECT_API_URL'] = 'https://prefect.example.internal'
-    print(f'PREFECT_API_URL: {os.environ.get("PREFECT_API_URL")}')
+    api_url = os.environ.get("PREFECT_API_URL")
+    if not api_url:
+        raise EnvironmentError("PREFECT_API_URL is not set. Please set it in the environment.")
+
+    print(f"PREFECT_API_URL: {api_url}")
+
     flow_func = stg_frontend_scalepad_hardware_assets
     flow_name = flow_func.__name__
 
@@ -162,5 +166,5 @@ if __name__ in "__main__":
         entrypoint=f"{Path(__file__).name}:{flow_name}"
     ).deploy(
         name=flow_name,
-        work_pool_name="default-worker-pool",  # or your specific work pool name
+        work_pool_name="default-worker-pool",  # Or load from env/config
     )
